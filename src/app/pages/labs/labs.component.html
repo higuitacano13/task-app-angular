@@ -1,0 +1,171 @@
+<div class="container">
+  <!-- Utilizar valores almacenados en la lógica en componentes HTML -->
+  <h1>{{welcome}}</h1>
+  <ul>
+    @for (task of tasks(); track task) {
+      <li>
+        {{task}}
+      </li>
+    }
+  </ul>
+
+  <hr/>
+
+  <h2>Asignar valores</h2>
+
+  <!-- Utilizar valores almacenados en la lógica en componentes HTML -->
+  <h2>{{ 'Soy la verga | '.repeat(4) }}</h2>
+  <p>La suma de 3 + 3 es {{3+3}}</p>
+  <p>Mi nombre es: {{ person().name }} y mi edad es {{ person().age }}</p>
+  <img [src]="person().avatar" alt="">
+
+  <hr/>
+  <!-- Event Binding -->
+  <h2>Event Binding</h2>
+
+  <!-- Event OnClick - Button -->
+  <button (click)="clickHandler()">Click me</button>
+
+  <!-- Event DoubleClick - Button -->
+  <button (dblclick)="DoubleClickHandler()">Click me</button>
+
+  <!-- Event Change - Input -->
+  <p>(Change)</p>
+  <input type="number" [value]="person().age" (change)="changeHandler($event)">
+
+  <!-- Event Change - Input -->
+  <p>(Change)</p>
+  <input type="text" [value]="person().name" (change)="changeHandler($event)">
+
+  <!-- Event Keydown - Input -->
+  <p>(Keydown)</p>
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
+
+  <!-- Event Keydown - Input -->
+  <p>(Keydown shift + T)</p>
+  <input type="text" [value]="person().name" (keydown.shift.t)="clickHandler()">
+
+
+  <!-- ======================================================================================= -->
+
+  <hr>
+    <h2>Ciclos</h2>
+
+    <!-- OLD SINTAX -->
+    <ul>
+      <p>Total de Elementos: {{ tasks().length }}</p>
+      @for (task of tasks(); track task; let i = $index) {
+        <li>
+          {{i}} - {{task}}
+        </li>
+      }
+    </ul>
+
+    <hr>
+      @if (1 !== 1) {
+        <div>
+          My content
+        </div>
+      }
+
+      <!-- NEW SINTAX -->
+
+      <ul>
+        @for(task of tasks(); track task; let i =$index){
+          <li>{{i}} - {{task}} </li>
+          } @empty {
+          <li><strong>La lista está vacía</strong></li>
+        }
+      </ul>
+
+      <!-- ======================================================================================= -->
+
+      <h1>Condicionales</h1>
+      <input type="text" [value]="person().name" (change)="changeName($event)">
+      <input type="number" [value]="person().age" (change)="changeAge($event)">
+
+      <p>Nombre Ingresado: {{ name() }}</p>
+      <p>Edad Ingresada: {{person().age}}</p>
+
+      <!-- OLD SINTAX -->
+      @if (person().name === 'Higuita' && person().age > 18) {
+        <div>
+          La condición del nombre se cumple y soy mayo de 18
+        </div>
+      } @else {
+        Soy otro men y soy menor de 18
+      }
+
+      <!-- NEW SINTAX -->
+      @if(person().name === 'Higuita' && person().age > 18){
+        <div>La condición del nombre se cumple y soy mayor de 18</div>
+      } @else {
+        <div>No soy Juan Higuita y/o no tengo 18</div>
+      }
+
+
+      <!-- ======================================================================================= -->
+
+      <hr>
+        <h1>Switch</h1>
+        <!-- OLD SINTAX -->
+        <div>
+          @switch (person().name) {
+            @case ('Higuita') {
+              <p>Soy Don Higuita</p>
+            }
+            @case ('Saldarriaga') {
+              <p>Soy Doña Manuela</p>
+            }
+            @case ('Cano') {
+              <p>Soy Cano</p>
+            }
+            @default {
+              <p>Yo soy otra persona</p>
+            }
+          }
+        </div>
+
+        <!-- NEW SINTAX -->
+        <div>
+          @switch (person().name) {
+            @case('Higuita'){
+              <p>Soy Don Higuita</p>
+            }
+            @case('Saldarriaga'){
+              <p>Soy Doña Manuela</p>
+            }
+            @case('Juan Manuel'){
+              <p>Soy el negro más negro</p>
+            }
+            @default {
+              <p>Soy otro fulano</p>
+            }
+          }
+        </div>
+
+        <!-- ======================================================================================= -->
+        <hr>
+          <input type="color" [formControl]="colorCtrl">
+          <p>Color: {{ colorCtrl.value }}</p>
+          <svg>
+            <g>
+              <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtrl.value"/>
+            </g>
+          </svg>
+
+          <hr>
+            <input type="number" [formControl]="widthCtrl">
+            <span class="box" [style.width.px] = "widthCtrl.value"></span>
+
+            <hr>
+              <p>
+                <input type="text" [formControl]="nameCtrl"> <br/>
+                <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre Inválido</span>
+              </p>
+
+              <p>
+                <input type="text">
+              </p>
+
+            </div>
